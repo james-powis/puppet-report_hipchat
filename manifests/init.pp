@@ -9,7 +9,7 @@ class report_hipchat (
   $notify_color   = 'red',
   $notify_room    = false,
   $statuses       = [ 'failed' ],
-  $config_file    = "${::report_hipchat::params::puppetconf_path}/hipchat.yaml",
+  $config_file    = $::report_hipchat::params::config_file,
   $package_name   = $::report_hipchat::params::package_name,
   $install_hc_gem = $::report_hipchat::params::install_hc_gem,
   $provider       = $::report_hipchat::params::provider,

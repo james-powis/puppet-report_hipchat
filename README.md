@@ -35,7 +35,6 @@ class { 'report_hipchat':
   api_key        => 'WzP0dc4oEESuSmF2WJT23GtL5mili9uXof73M48S',
   room           => '123456789',
   install_hc_gem => true,
-  provider       => 'puppetserver_gem',
 }
 ```
 
@@ -48,7 +47,6 @@ class { 'report_hipchat':
   api_key        => 'WzP0dc4oEESuSmF2WJT23GtL5mili9uXof73M48S',
   room           => '123456789',
   install_hc_gem => true,
-  provider       => 'puppetserver_gem',
   puppetboard    => 'https://puppetboard.test.local',
 }
 ```
@@ -62,7 +60,6 @@ class { 'report_hipchat':
   api_key        => 'WzP0dc4oEESuSmF2WJT23GtL5mili9uXof73M48S',
   room           => '123456789',
   install_hc_gem => true,
-  provider       => 'puppetserver_gem',
   dashboard      => 'https://dashboard.test.local',
 }
 ```
@@ -76,15 +73,9 @@ class { 'report_hipchat':
   api_key        => 'WzP0dc4oEESuSmF2WJT23GtL5mili9uXof73M48S',
   room           => '123456789',
   install_hc_gem => true,
-  provider       => 'puppetserver_gem',
   proxy          => 'http://proxy.test.local:8080',
 }
 ```
-
-### Provider
-* `puppetserver_gem` used for opensource and pe puppetserver requires [puppetlabs-pe_gem](https://forge.puppet.com/puppetlabs/puppetserver_gem)
-* `pe_gem` used for PE puppet master 3.x requires [puppetlabs-pe_gem](https://forge.puppet.com/puppetlabs/pe_gem)
-* `gem` used for opensource puppet-master 
 
 ### Configure the report in puppet.conf
 ```puppet
@@ -151,7 +142,7 @@ group:          hipchat.conf group: String[default: Varies based on puppet versi
 
 package_name:   Hipchat gem: String[default: 'hipchat']
 install_hc_gem: Install Hipchat Gem: Boolean[default: Varies based on puppet version]
-provider:       Package Provider to use: String[default: Varies based on puppet version]
+provider:       Package Provider to use: String[default: puppetserver_gem]
 
 puppetboard:    URL to puppetboard: String[optional]
 dashboard:      URL to dashboard: String[optional]
@@ -169,7 +160,7 @@ a not found error for any nodes in environments other than `production`.
   `hipchat_disabled` in the same path as `hipchat.yaml`. Removing it
   will re-enable notifications.
 
-    $ touch /etc/puppet/hipchat_disabled
+    $ touch /etc/puppetlabs/puppet/hipchat_disabled
 
 Team
 ----

@@ -5,6 +5,10 @@ begin
   require 'hipchat'
 rescue LoadError
   Puppet.warning 'You need the `hipchat` gem to use the Hipchat report'
+else
+  if Gem.loaded_specs['hipchat'].version < Gem::Version.new('1.0.0')
+    Puppet.warning 'You need the `hipchat` gem version 1.0.0 to use the Hipchat report'
+  end
 end
 
 if Gem::Version.new(Puppet.version) < Gem::Version.new('4.0.0')
@@ -37,10 +41,6 @@ Puppet::Reports.register_report(:hipchat) do
 
   DISABLED_FILE = File.join([File.dirname(Puppet.settings[:config]), 'hipchat_disabled'])
   HIPCHAT_PROXY = config[:hipchat_proxy] || ENV['http_proxy']
-
-  if HIPCHAT_PROXY && (RUBY_VERSION < '1.9.3' || Gem.loaded_specs['hipchat'].version < Gem::Version.new('1.0.0'))
-    raise(Puppet::SettingsError, 'hipchat_proxy requires ruby >= 1.9.3 and hipchat gem >= 1.0.0')
-  end
 
   desc <<-DESC
   Send notification of puppet runs to a Hipchat room.
