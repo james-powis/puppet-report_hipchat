@@ -18,6 +18,7 @@ describe 'report_hipchat' do
     end
     it { is_expected.to contain_class('report_hipchat') }
     it { is_expected.to contain_class('report_hipchat::params') }
+    it { is_expected.to contain_notify('Puppet 3.x support is depricated, upgrade to puppet 4') }
     it { is_expected.to contain_package('hipchat').with(provider: 'gem') }
     it { is_expected.to contain_file('/etc/puppet/hipchat.yaml').with_content(%r{:hipchat_api: mykey}) }
     it { is_expected.to contain_file('/etc/puppet/hipchat.yaml').with_content(%r{:hipchat_room: myroom}) }

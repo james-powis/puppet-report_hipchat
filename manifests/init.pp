@@ -20,6 +20,9 @@ class report_hipchat (
   $api_version    = $::report_hipchat::params::api_version,
   $proxy          = $::report_hipchat::params::proxy,
 ) inherits report_hipchat::params {
+  if versioncmp($::puppetversion, '4.0.0') < 0 {
+    notify{'Puppet 3.x support is depricated, upgrade to puppet 4': }
+  }
 
   file { $config_file:
     ensure  => file,

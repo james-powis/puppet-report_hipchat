@@ -7,6 +7,10 @@ rescue LoadError
   Puppet.warning 'You need the `hipchat` gem to use the Hipchat report'
 end
 
+if Gem::Version.new(Puppet.version) < Gem::Version.new('4.0.0')
+  Puppet.warning 'Puppet 3.x support is depricated, upgrade to puppet 4'
+end
+
 Puppet::Reports.register_report(:hipchat) do
   configfile = File.join([File.dirname(Puppet.settings[:config]), 'hipchat.yaml'])
   raise(Puppet::ParseError, "Hipchat report config file #{configfile} not readable") unless File.exist?(configfile)
