@@ -67,7 +67,13 @@ describe 'puppet-hipchat' do
       it 'an agent run is successful' do
         expect(run_agent_on(hosts[0]).exit_code).to be_zero
       end
+
+      it 'installs the hipchat gem' do
+	show_result = shell('puppetserver gem list | grep hipchat')
+	expect(show_result.stdout).to match /hipchat/
+      end
     end
+
 
     describe file('/tmp/hipchat-notified.txt') do
       it { is_expected.to be_file }
